@@ -2,7 +2,7 @@ const frisby = require('frisby');
 const { MongoClient } = require('mongodb');
 require('dotenv').config();
 
-const mongoDbUrl = `mongodb://${process.env.HOST || 'mongodb'}:27017/StoreManager`;
+const mongoDbUrl = `mongodb://${process.env.HOST || 'mongodb'}:27017`;
 const url = 'http://localhost:3000';
 const invalidId = 99999;
 
