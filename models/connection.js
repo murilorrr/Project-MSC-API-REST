@@ -1,6 +1,7 @@
+require('dotenv').config();
 const { MongoClient } = require('mongodb');
 
-const MONGO_DB_URL = 'mongodb://localhost:27017';
+const MONGO_DB_URL = `mongodb://${process.env.HOST || 'mongodb'}:27017`;
 const DB_NAME = 'StoreManager';
 
 const connection = () => MongoClient
