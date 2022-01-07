@@ -148,7 +148,6 @@ describe("Testa todas as operações da camada de Modelo: ", () => {
     it('A query retorna com o produto deletado', async () => {
       const productInserted = await operationsModel.insertOne(payloadProduct);
       const result = await operationsModel.deleteOne(productInserted._id);
-      console.log(result);
 
       expect(result).to.have.property("_id");
       expect(result.name).to.be.equal(productInserted.name);
@@ -157,7 +156,6 @@ describe("Testa todas as operações da camada de Modelo: ", () => {
     it('Verifica se o produto saiu do banco de dados', async () => {
       const productInserted = await operationsModel.insertOne(payloadProduct);
       const result = await operationsModel.deleteOne(productInserted._id);
-      console.log(result);
 
       expect(result).to.have.property("_id");
       expect(result.name).to.be.equal(productInserted.name);
@@ -165,6 +163,25 @@ describe("Testa todas as operações da camada de Modelo: ", () => {
       const getDB = await operationsModel.getAll();
 
       expect(getDB).to.be.a('array').to.be.empty;
+    });
+  });
+
+  describe('Testa a função de updateOne de um produto, realizando uma venda', () => {
+    const payloadProduct = {
+      "name": "cheetos",
+      "quantity": 100,
+    };
+
+    it('retorna com o numero correto de decrescimento', async() => {
+      const productInserted = await operationsModel.insertOne(payloadProduct);
+
+      const payloadUpdate = {...productInserted, quantity: 2 };
+
+      await operationsModel.updateOne(payloadUpdate._id, payloadUpdate);
+
+      const result = await operationsModel.getById(productInserted._id);
+
+      expect(result.quantity).to.equal(2);
     });
   });
 });
