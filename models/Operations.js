@@ -8,7 +8,7 @@ const insertOne = async (collection, product) => {
     .insertOne(product));
     return result.ops.pop() || null;
   } catch (error) {
-    return error.message;
+    throw new Error('parametro Vazio');
   }
 };
 
